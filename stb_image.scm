@@ -4677,10 +4677,24 @@ EOF
 )
 
 (module stb_image *
-        (import chicken scheme foreign)
+        (import chicken scheme foreign lolevel)
+        (use srfi-4 lolevel)
         (define stbi-load (foreign-lambda c-pointer "stbi_load"
                             c-string
                             (c-pointer integer)
                             (c-pointer integer)
                             (c-pointer integer)
-                            integer)))
+                            integer))
+
+        (define (stbi-load-rgba path)
+          (let-location
+            ((width integer)
+             (height integer)
+             (components integer))
+            (let* ((data (stbi-load path (location width) (location height)
+                                    (location components) 4))
+                   (bytes (* width height 4))
+                   (pixels (make-u8vector bytes)))
+              (move-memory! data pixels bytes)
+              (free data)
+              `(,width ,height ,pixels)))))

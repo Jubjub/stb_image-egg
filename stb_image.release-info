@@ -1,0 +1,3 @@
+(repo git "git://github.com/evhan/stb_image-egg.git")
+(uri targz "https://github.com/Metanoia/stb_image-egg/tarball/{egg-release}")
+(release "0.0.1")

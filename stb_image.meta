@@ -1,0 +1,4 @@
+((description "stb_image bindings")
+ (category graphics)
+ (author "Jubjub")
+ (license "MIT"))
